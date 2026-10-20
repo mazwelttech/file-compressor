@@ -1,7 +1,7 @@
 'use strict';
 
 const sharp = require('sharp');
-const { PDFName, PDFDict, PDFArray, PDFBool, PDFRawStream } = require('@cantoo/pdf-lib');
+const { PDFName, PDFArray, PDFBool, PDFRawStream } = require('@cantoo/pdf-lib');
 const { N, nameOf, num, peelFilters, rewriteStream } = require('./streams');
 
 sharp.cache(false);

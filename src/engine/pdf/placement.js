@@ -4,7 +4,7 @@
 // can target an effective DPI instead of guessing. We only need q / Q / cm / Do, so this is a
 // small content-stream scanner rather than a full interpreter.
 
-const { PDFName, PDFDict, PDFArray, PDFRef, PDFNumber, PDFRawStream } = require('@cantoo/pdf-lib');
+const { PDFDict, PDFArray, PDFRef, PDFNumber, PDFRawStream } = require('@cantoo/pdf-lib');
 const { N, nameOf, peelFilters } = require('./streams');
 
 const WS = new Uint8Array(256);

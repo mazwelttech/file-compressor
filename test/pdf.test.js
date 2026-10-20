@@ -6,7 +6,7 @@ const path = require('path');
 const os = require('os');
 const zlib = require('zlib');
 const sharp = require('sharp');
-const { PDFDocument, PDFName, PDFRawStream, PDFRef, StandardFonts } = require('@cantoo/pdf-lib');
+const { PDFDocument, PDFRawStream, StandardFonts } = require('@cantoo/pdf-lib');
 const { compressFile } = require('../src/engine');
 const { scanContent, multiply, findPlacements } = require('../src/engine/pdf/placement');
 const { unpredict, peelFilters, N } = require('../src/engine/pdf/streams');
@@ -64,7 +64,6 @@ test('unpredict reverses PNG row filters (all five types)', async () => {
   const types = new Set();
   for (let r = 0; r < 64; r++) types.add(filtered[r * (97 * 3 + 1)]);
   assert.ok(types.size >= 3, `exercised filter types ${[...types]}`);
-  const parms = { lookup: (k) => ({ Predictor: 15, Colors: 3, BitsPerComponent: 8, Columns: 97 })[k.asString().slice(1)] && { asNumber: () => ({ Predictor: 15, Colors: 3, BitsPerComponent: 8, Columns: 97 })[k.asString().slice(1)] } };
   const { PDFNumber } = require('@cantoo/pdf-lib');
   const fake = { lookup: (k) => { const v = { Predictor: 15, Colors: 3, BitsPerComponent: 8, Columns: 97 }[k.asString().slice(1)]; return v === undefined ? undefined : PDFNumber.of(v); } };
   assert.deepEqual(unpredict(filtered, fake), raw);

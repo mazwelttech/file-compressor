@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const { UserError, AbortError, makeTempDir, formatBytes } = require('./common');
 const { compressImage } = require('./image');

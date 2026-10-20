@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const {
   PDFDocument,
-  PDFName,
   PDFDict,
   PDFArray,
   PDFRef,
