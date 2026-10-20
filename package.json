@@ -1,0 +1,77 @@
+{
+  "name": "file-compressor",
+  "productName": "File Compressor",
+  "version": "1.0.0",
+  "description": "Shrink images and PDFs to an exact target size, keeping quality unless you say otherwise.",
+  "author": "mazwelttech",
+  "license": "MIT",
+  "private": true,
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"test/*.test.js\"",
+    "e2e": "node test/e2e/run.js",
+    "icons": "node scripts/make-icons.js",
+    "dist": "electron-builder --win nsis --x64 --publish never",
+    "dist:dir": "electron-builder --dir --publish never"
+  },
+  "dependencies": {
+    "@cantoo/pdf-lib": "^2.11.1",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "electron": "^44.9.1",
+    "electron-builder": "^26.15.3",
+    "playwright-core": "^1.56.1"
+  },
+  "homepage": "https://github.com/mazwelttech/file-compressor",
+  "build": {
+    "appId": "com.mazwelttech.filecompressor",
+    "productName": "File Compressor",
+    "copyright": "Copyright \u00a9 2026 mazwelttech",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "build/icon.png",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/sharp/**",
+      "**/node_modules/@img/**"
+    ],
+    "npmRebuild": false,
+    "compression": "maximum",
+    "electronLanguages": [
+      "en-US"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "FileCompressor-Setup-${version}.${ext}",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "File Compressor",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "uninstallDisplayName": "File Compressor",
+      "deleteAppDataOnUninstall": true
+    }
+  }
+}
