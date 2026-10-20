@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: file:; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>File Compressor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <img class="logo" src="logo.png" alt="" width="40" height="40" />
+        <div class="titles">
+          <h1>File Compressor</h1>
+          <p>Shrink images and PDFs to the size you need, keeping quality unless you say otherwise.</p>
+        </div>
+        <span class="version" id="version"></span>
+      </header>
+
+      <section class="card settings" aria-label="Compression settings">
+        <div class="setting target">
+          <label class="label" for="size">Make each file smaller than</label>
+          <div class="target-row">
+            <div class="size-input">
+              <input id="size" type="number" min="1" step="any" inputmode="decimal" value="500" aria-describedby="size-error" />
+              <div class="seg" id="unit" role="group" aria-label="Unit">
+                <button type="button" data-unit="KB" aria-pressed="true">KB</button>
+                <button type="button" data-unit="MB" aria-pressed="false">MB</button>
+              </div>
+            </div>
+            <div class="chips" id="chips" role="group" aria-label="Common sizes"></div>
+          </div>
+          <p class="field-error" id="size-error" role="alert" hidden></p>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting">
+            <span class="label" id="save-label">Save to</span>
+            <div class="save-row">
+              <div class="seg" id="save-mode" role="group" aria-labelledby="save-label">
+                <button type="button" data-mode="beside" aria-pressed="true">Next to originals</button>
+                <button type="button" data-mode="folder" aria-pressed="false">A folder</button>
+              </div>
+              <button type="button" class="link-btn" id="folder-btn" hidden></button>
+            </div>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="keep-meta" />
+            <span class="check-box" aria-hidden="true"></span>
+            <span class="check-text">
+              Keep photo details
+              <small>Camera info, date and location in JPG/WebP. Off saves a little more space.</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <main class="stage" id="stage" aria-live="polite">
+        <div class="empty" id="empty">
+          <div class="empty-art" aria-hidden="true"></div>
+          <h2>Drop images or PDFs here</h2>
+          <p>JPG, PNG, WebP and PDF. You can drop whole folders too.</p>
+          <button type="button" class="btn primary" id="pick-empty">Choose files…</button>
+        </div>
+        <ul class="list" id="list" hidden></ul>
+      </main>
+
+      <footer class="bar">
+        <div class="bar-left">
+          <button type="button" class="btn" id="add">Add files…</button>
+          <button type="button" class="btn ghost" id="clear" disabled>Clear all</button>
+        </div>
+        <div class="summary" id="summary"></div>
+        <div class="bar-right">
+          <button type="button" class="btn accent" id="compromise-all" hidden></button>
+          <button type="button" class="btn primary" id="go" disabled>Compress</button>
+        </div>
+      </footer>
+    </div>
+
+    <div class="drop-overlay" id="overlay" hidden>
+      <div class="drop-card">Drop to add files</div>
+    </div>
+
+    <dialog id="compare" aria-labelledby="compare-title">
+      <div class="dlg-head">
+        <h3 id="compare-title">Before and after</h3>
+        <button type="button" class="icon-btn" id="compare-close" aria-label="Close">×</button>
+      </div>
+      <div class="cmp" id="cmp">
+        <img id="cmp-after" alt="Compressed version" />
+        <img id="cmp-before" alt="Original version" />
+        <div class="cmp-handle" id="cmp-handle"></div>
+        <span class="cmp-tag left" id="cmp-tag-before"></span>
+        <span class="cmp-tag right" id="cmp-tag-after"></span>
+      </div>
+      <input type="range" id="cmp-range" min="0" max="100" value="50" aria-label="Compare original and compressed" />
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
